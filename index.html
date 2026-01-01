@@ -1,0 +1,403 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinVoice AI | Intelligent Voice Banking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-white overflow-x-hidden">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <i data-lucide="shield" class="text-white w-5 h-5"></i>
+            </div>
+            <span class="text-xl font-bold tracking-tight">FinVoice<span class="text-blue-500">AI</span></span>
+        </div>
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium text-white/70">
+            <a href="#demo" class="hover:text-white transition-colors">Interactive Demo</a>
+            <a href="#products" class="hover:text-white transition-colors">Financial Products</a>
+            <a href="#features" class="hover:text-white transition-colors">Agent Capabilities</a>
+        </div>
+        <!-- Start Building button removed -->
+    </nav>
+
+    <main class="min-h-screen pt-24 pb-12 px-4 md:px-8">
+        <section class="max-w-7xl mx-auto text-center mt-12 mb-24">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-8 animate-fade-in">
+                <i data-lucide="zap" class="w-4 h-4"></i>
+                <span>Vapi-Powered Financial Assistant Demo</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-8 tracking-tight leading-tight">Next-Gen AI <span class="text-blue-500">Voice Agents</span> <br /> for Financial Services</h1>
+            <p class="text-xl text-white/60 max-w-3xl mx-auto mb-12 leading-relaxed">I build intelligent, human-like voice experiences that handle complex banking queries, verification, and customer support with ultra-low latency.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="mailto:hello@yourportfolio.com?subject=Inquiry from FinVoice AI Demo" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-blue-500/20">
+                    Launch Demo <i data-lucide="mail" class="w-5 h-5"></i>
+                </a>
+                <!-- Configuration button removed -->
+            </div>
+        </section>
+
+        <!-- Config Modal removed -->
+
+        <section id="demo" class="max-w-7xl mx-auto mb-32 relative">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full -z-10"></div>
+            <div class="grid lg:grid-cols-5 gap-16 items-start">
+                <div class="space-y-8 lg:col-span-3">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center">
+                            <i data-lucide="message-square" class="text-blue-400 w-5 h-5"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold">Interactive Voice Lab</h2>
+                    </div>
+                    <p class="text-white/60 leading-relaxed text-lg">Use these customer profiles to test the AI agent. The agent is also aware of the product details listed below.</p>
+                    <div id="customer-cards-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                    <div class="p-6 rounded-2xl bg-amber-500/10 border border-amber-500/20">
+                        <h4 class="flex items-center gap-2 text-amber-400 font-bold mb-2">
+                            <i data-lucide="check-circle-2" class="w-5 h-5"></i> Test Scenario Instructions
+                        </h4>
+                        <ol class="text-sm text-white/70 space-y-2 list-decimal ml-4">
+                            <li>Choose a customer profile to impersonate.</li>
+                            <li>Click "Speak with Agent" and state your request (e.g., check balance, report lost card).</li>
+                            <li>When asked for verification, provide the <b>Last 4 Digits</b> and <b>Date of Birth</b> for your chosen profile.</li>
+                            <li><b>Example:</b> Ask to block the card for "David Anderson".</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="sticky top-32 lg:col-span-2 glass p-8 md:p-10 rounded-[2.5rem] border border-white/10 shadow-3xl flex flex-col items-center text-center">
+                    <div id="mic-icon-container" class="w-32 h-32 rounded-full flex items-center justify-center relative mb-10 transition-colors duration-500 bg-slate-800">
+                        <i data-lucide="mic" id="mic-icon" class="w-12 h-12 transition-colors text-white/20"></i>
+                    </div>
+                    <h3 id="call-status-heading" class="text-3xl font-bold mb-4">Agent Ready</h3>
+                    <p id="call-status-paragraph" class="text-white/50 mb-10 max-w-sm">Ready to handle your banking queries in natural language.</p>
+                    <button id="call-button" class="w-full max-w-xs py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 transition-all bg-blue-600 hover:bg-blue-700 shadow-xl shadow-blue-500/20">
+                        <span id="call-button-content">
+                            <i data-lucide="phone" class="w-6 h-6 inline-block"></i> Speak with Agent
+                        </span>
+                    </button>
+                    <button id="reset-button" class="hidden mt-4 text-blue-400 hover:text-blue-300 text-sm font-medium">Reset Connection</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="max-w-7xl mx-auto mb-32">
+            <div class="text-left mb-12">
+                <h2 class="text-4xl font-bold mb-4 tracking-tight">ABC Financial Products</h2>
+                <p class="text-white/60 max-w-3xl text-lg">The voice agent has access to the full details of our credit card offerings.</p>
+            </div>
+            <div id="product-cards-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <section id="features" class="max-w-7xl mx-auto mb-32">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6 tracking-tight">Enterprise Agent Capabilities</h2>
+                <p class="text-white/60 max-w-2xl mx-auto text-lg">I specialize in high-performance voice engineering. Here's what I bring to financial ecosystems.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl glass border border-white/5 hover:border-blue-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="zap" class="text-blue-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Sub-800ms Latency</h3>
+                    <p class="text-white/60 leading-relaxed">Optimized for Vapi's lowest latency engine to ensure no awkward silences or delays.</p>
+                </div>
+                <div class="p-8 rounded-2xl glass border border-white/5 hover:border-blue-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="shield" class="text-blue-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Secure Verification</h3>
+                    <p class="text-white/60 leading-relaxed">Built-in flows for PII handling, multi-factor authentication, and identity validation.</p>
+                </div>
+                <div class="p-8 rounded-2xl glass border border-white/5 hover:border-blue-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="headphones" class="text-blue-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Emotional Intelligence</h3>
+                    <p class="text-white/60 leading-relaxed">Agents that recognize frustration or urgency and adapt their tone to the customer.</p>
+                </div>
+                <div class="p-8 rounded-2xl glass border border-white/5 hover:border-blue-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="globe" class="text-blue-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Multi-lingual</h3>
+                    <p class="text-white/60 leading-relaxed">Seamlessly switching between 20+ languages while maintaining financial terminology accuracy.</p>
+                </div>
+                <div class="p-8 rounded-2xl glass border border-white/5 hover:border-blue-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="message-square" class="text-blue-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Complex Reasoning</h3>
+                    <p class="text-white/60 leading-relaxed">Agents that can navigate billing disputes, loan applications, and policy explanations.</p>
+                </div>
+                <div class="p-8 rounded-2xl glass border border-white/5 hover:border-blue-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="check-circle-2" class="text-blue-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">CRM Integration</h3>
+                    <p class="text-white/60 leading-relaxed">Instant synchronization with Salesforce, Hubspot, or proprietary bank databases.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact" class="max-w-4xl mx-auto">
+            <div class="glass p-12 rounded-[3rem] border border-blue-500/20 text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 blur-[100px] -z-10"></div>
+                <h2 class="text-4xl font-bold mb-6 tracking-tight">Ready to upgrade your CX?</h2>
+                <p class="text-white/60 text-lg mb-10 leading-relaxed">I'm currently taking on projects for financial institutions looking to automate their support desk with AI voice agents. Let's build something world-class.</p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <a href="mailto:hello@yourportfolio.com?subject=Book a Strategy Call - FinVoice AI" class="bg-white text-slate-950 px-10 py-4 rounded-2xl font-bold hover:bg-white/90 transition-all flex items-center gap-2">
+                        Book a Strategy Call <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                    <div class="text-sm font-medium text-white/80">
+                        or email me at <a href="mailto:hello@example.com" class="text-blue-500 underline underline-offset-4">hello@yourportfolio.com</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="mt-32 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-white/40 text-sm px-4 md:px-8">
+        <div class="flex items-center gap-2">
+            <i data-lucide="shield" class="w-5 h-5"></i>
+            <span class="font-bold text-white/70">FinVoice AI</span>
+        </div>
+        <div>© 2026 AI Voice Engineering Portfolio. All rights reserved.</div>
+        <div class="flex gap-6">
+            <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+            <a href="#" class="hover:text-white transition-colors">Twitter</a>
+            <a href="#" class="hover:text-white transition-colors">GitHub</a>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module">
+        // Import module as a namespace object
+        // Updated to use @latest to ensure compatible dependencies (fixes daily-js deprecation)
+        import * as VapiModule from 'https://cdn.jsdelivr.net/npm/@vapi-ai/web@latest/+esm';
+        
+        // Robustly determine the Class constructor
+        // We check:
+        // 1. VapiModule.default (Standard ESM default export)
+        // 2. VapiModule.Vapi (Named export)
+        // 3. VapiModule.default.Vapi (CommonJS interop pattern sometimes seen in CDNs)
+        // 4. VapiModule (If the module itself is the export, rare but possible)
+        
+        let VapiClass = VapiModule.default || VapiModule.Vapi || VapiModule;
+        
+        // Double check if we got an object that contains the class instead of the class itself
+        if (VapiClass && typeof VapiClass !== 'function') {
+            if (VapiClass.Vapi) {
+                VapiClass = VapiClass.Vapi;
+            } else if (VapiClass.default) {
+                VapiClass = VapiClass.default;
+            }
+        }
+        
+        // --- DATA ---
+        const DUMMY_CUSTOMERS = [
+            { id: '1', cardName: 'ABC Platinum', lastFour: '4321', ownerName: 'John Miller', dob: 'May 12, 1992', creditLimit: '$10,000', availableCredit: '$6,200', rewardPoints: '4,500', billingCycle: '5th–4th', statement: '$845.00', minimumDue: '$85.00', dueDate: '20th of month', status: 'Active', theme: 'bg-gradient-to-br from-slate-700 to-slate-900' },
+            { id: '2', cardName: 'ABC Cashback', lastFour: '8765', ownerName: 'Emily Johnson', dob: 'Nov 28, 1995', creditLimit: '$5,000', availableCredit: '$3,800', cashback: '$62.50', billingCycle: '10th–9th', statement: '$236.00', minimumDue: '$23.60', dueDate: '25th of month', status: 'Active', theme: 'bg-gradient-to-br from-emerald-700 to-emerald-900' },
+            { id: '3', cardName: 'ABC Travel', lastFour: '1122', ownerName: 'David Anderson', dob: 'Mar 3, 1988', creditLimit: '$20,000', availableCredit: '$14,100', rewardPoints: '12,800', billingCycle: '18th–17th', statement: '$1,520.00', minimumDue: '$152.00', dueDate: '18th of month', status: 'Active', theme: 'bg-gradient-to-br from-blue-800 to-indigo-950' }
+        ];
+        const PRODUCT_DETAILS = [
+            { name: 'ABC Platinum Credit Card', limit: '$5,000 – $15,000', fee: '$95 Annually', rewards: { title: '2 points per $1 spent', details: ['1 point = $0.01 redemption value'] }, benefits: ['2 domestic lounge visits per quarter', '1% fuel surcharge waiver'], emi: { title: '12% APR', details: ['For purchases above $300', 'Tenure: 3, 6, 12 months'] }, penalties: ['Late fee: $35', 'Returned payment: $30', 'APR after due date: up to 24.99%'], theme: 'border-slate-600' },
+            { name: 'ABC Cashback Credit Card', limit: '$2,000 – $8,000', fee: '$49 Annually', rewards: { title: 'Up to 5% Cashback', details: ['5% on groceries & dining', '1% on other spends'] }, benefits: [], emi: { title: '10% APR', details: ['For purchases above $200', 'Tenure: 3 or 6 months'] }, penalties: ['Late fee: $30', 'Returned payment: $25'], theme: 'border-emerald-600' },
+            { name: 'ABC Travel Credit Card', limit: '$10,000 – $25,000', fee: '$249 Annually', rewards: { title: '4 points per $1 on travel', details: ['2 points per $1 on other spends'] }, benefits: ['Domestic & international lounge access', 'Comprehensive travel insurance'], emi: { title: '14% APR', details: ['For purchases above $500', 'Tenure: 6 or 12 months'] }, penalties: ['Late fee: $40', 'Returned payment: $35'], theme: 'border-blue-600' }
+        ];
+        const VAPI_CONFIG = { PUBLIC_KEY: 'bd210ebe-d789-4927-8e7e-c817e9f1dc8e', ASSISTANT_ID: '4f4230b1-a3dd-4637-8812-84bd6bb24610' };
+        const CallStatus = { IDLE: 'IDLE', CONNECTING: 'CONNECTING', ACTIVE: 'ACTIVE', ERROR: 'ERROR' };
+
+        // --- STATE ---
+        let vapi;
+        let callStatus = CallStatus.IDLE;
+        let vapiKeys = { ...VAPI_CONFIG };
+
+        // --- DOM ELEMENTS ---
+        const customerCardsContainer = document.getElementById('customer-cards-container');
+        const productCardsContainer = document.getElementById('product-cards-container');
+        const callButton = document.getElementById('call-button');
+        const callButtonContent = document.getElementById('call-button-content');
+        const micIconContainer = document.getElementById('mic-icon-container');
+        const micIcon = document.getElementById('mic-icon');
+        const callStatusHeading = document.getElementById('call-status-heading');
+        const callStatusParagraph = document.getElementById('call-status-paragraph');
+        const resetButton = document.getElementById('reset-button');
+        
+        // Removed Config Modal Elements
+
+        // --- RENDER FUNCTIONS ---
+        function renderCustomerCards() {
+            customerCardsContainer.innerHTML = DUMMY_CUSTOMERS.map(customer => `
+                <div class="glass p-4 rounded-3xl border border-white/5 space-y-4">
+                    <div class="p-5 rounded-2xl shadow-2xl relative overflow-hidden h-44 ${customer.theme}">
+                        <div class="absolute top-0 right-0 p-4 opacity-20"><i data-lucide="credit-card" class="w-20 h-20"></i></div>
+                        <div class="relative z-10 h-full flex flex-col justify-between">
+                            <div>
+                                <div class="text-xs uppercase tracking-widest opacity-70 mb-1">${customer.cardName}</div>
+                                <div class="text-lg font-mono tracking-wider font-semibold">**** **** **** ${customer.lastFour}</div>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <div class="text-[10px] uppercase opacity-50">Card Holder</div>
+                                    <div class="text-sm font-medium">${customer.ownerName}</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-[10px] uppercase opacity-50">Date of Birth</div>
+                                    <div class="text-sm font-medium">${customer.dob}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-2 pb-2 grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
+                      <div class="col-span-2">
+                          <span class="block text-white/40 text-[10px] uppercase font-bold">Available Credit</span>
+                          <span class="font-semibold text-lg">${customer.availableCredit} <span class="text-white/40 text-sm">/ ${customer.creditLimit}</span></span>
+                      </div>
+                      <div><span class="block text-white/40 text-[10px] uppercase font-bold">Statement</span><span class="font-semibold">${customer.statement}</span></div>
+                      <div><span class="block text-white/40 text-[10px] uppercase font-bold">Min. Due</span><span class="font-semibold">${customer.minimumDue}</span></div>
+                      <div><span class="block text-white/40 text-[10px] uppercase font-bold">Due Date</span><span class="font-semibold">${customer.dueDate}</span></div>
+                      <div><span class="block text-white/40 text-[10px] uppercase font-bold">Rewards / Cashback</span><span class="font-semibold text-blue-400">${customer.rewardPoints || customer.cashback}</span></div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function renderProductCards() {
+            productCardsContainer.innerHTML = PRODUCT_DETAILS.map(product => `
+                <div class="p-8 rounded-3xl glass border-2 ${product.theme} flex flex-col">
+                    <h3 class="text-2xl font-bold mb-2">${product.name}</h3>
+                    <div class="flex gap-4 mb-6 text-sm">
+                        <div class="text-white/60">Limit: <span class="text-white font-semibold">${product.limit}</span></div>
+                        <div class="text-white/60">Fee: <span class="text-white font-semibold">${product.fee}</span></div>
+                    </div>
+                    <div class="space-y-5 text-sm">
+                        <div class="flex items-start gap-3"><i data-lucide="award" class="text-blue-400 w-5 h-5 shrink-0 mt-0.5"></i><div><h4 class="font-bold text-white/90">${product.rewards.title}</h4>${product.rewards.details.map(d => `<p class="text-white/60">${d}</p>`).join('')}</div></div>
+                        ${product.benefits.length > 0 ? `<div class="flex items-start gap-3"><i data-lucide="briefcase" class="text-blue-400 w-5 h-5 shrink-0 mt-0.5"></i><div><h4 class="font-bold text-white/90">Benefits</h4>${product.benefits.map(b => `<p class="text-white/60">${b}</p>`).join('')}</div></div>` : ''}
+                        <div class="flex items-start gap-3"><i data-lucide="percent" class="text-blue-400 w-5 h-5 shrink-0 mt-0.5"></i><div><h4 class="font-bold text-white/90">EMI @ ${product.emi.title}</h4>${product.emi.details.map(d => `<p class="text-white/60">${d}</p>`).join('')}</div></div>
+                        <div class="flex items-start gap-3"><i data-lucide="alert-triangle" class="text-amber-400 w-5 h-5 shrink-0 mt-0.5"></i><div><h4 class="font-bold text-white/90">Penalties</h4><p class="text-white/60">${product.penalties.join(' / ')}</p></div></div>
+                    </div>
+                    <div class="flex-grow"></div>
+                    <p class="text-xs text-white/40 mt-6 pt-4 border-t border-white/10">“All approvals, limits, and rates are subject to eligibility and credit verification.”</p>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // --- UI UPDATE ---
+        function updateUI(status) {
+            callStatus = status;
+            micIconContainer.classList.remove('bg-slate-800', 'bg-slate-700', 'bg-blue-600', 'animate-pulse');
+            callButton.classList.remove('bg-blue-600', 'hover:bg-blue-700', 'bg-red-500', 'hover:bg-red-600', 'disabled:opacity-50', 'disabled:grayscale');
+            micIcon.classList.remove('text-white/20', 'text-white');
+            resetButton.classList.add('hidden');
+            if (micIconContainer.querySelector('.animate-ping')) {
+                micIconContainer.querySelector('.animate-ping').remove();
+            }
+
+            switch (status) {
+                case CallStatus.ACTIVE:
+                    callStatusHeading.textContent = "Agent is Listening...";
+                    callStatusParagraph.textContent = "Try asking: 'I lost my card, can you block it for me?'";
+                    callButtonContent.innerHTML = `<i data-lucide="x" class="w-6 h-6 inline-block"></i> End Session`;
+                    callButton.classList.add('bg-red-500', 'hover:bg-red-600');
+                    micIconContainer.classList.add('bg-blue-600', 'animate-pulse');
+                    micIcon.classList.add('text-white');
+                    micIconContainer.insertAdjacentHTML('afterbegin', `<div class="absolute inset-0 rounded-full border-4 border-blue-400 animate-ping opacity-25"></div>`);
+                    break;
+                case CallStatus.CONNECTING:
+                    callStatusHeading.textContent = "Connecting...";
+                    callStatusParagraph.textContent = "";
+                    callButtonContent.innerHTML = `<div class="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>`;
+                    callButton.classList.add('bg-blue-600', 'disabled:opacity-50', 'disabled:grayscale');
+                    micIconContainer.classList.add('bg-slate-700', 'animate-pulse');
+                    micIcon.classList.add('text-white/20');
+                    break;
+                case CallStatus.ERROR:
+                    callStatusHeading.textContent = "Call Error";
+                    callStatusParagraph.textContent = "Something went wrong. Please check your credentials.";
+                    callButtonContent.innerHTML = `<i data-lucide="phone" class="w-6 h-6 inline-block"></i> Speak with Agent`;
+                    callButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                    micIconContainer.classList.add('bg-slate-800');
+                    micIcon.classList.add('text-white/20');
+                    resetButton.classList.remove('hidden');
+                    break;
+                case CallStatus.IDLE:
+                default:
+                    callStatusHeading.textContent = "Agent Ready";
+                    callStatusParagraph.textContent = "Ready to handle your banking queries in natural language.";
+                    callButtonContent.innerHTML = `<i data-lucide="phone" class="w-6 h-6 inline-block"></i> Speak with Agent`;
+                    callButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                    micIconContainer.classList.add('bg-slate-800');
+                    micIcon.classList.add('text-white/20');
+                    break;
+            }
+            lucide.createIcons();
+            callButton.disabled = status === CallStatus.CONNECTING;
+        }
+
+        // --- VAPI LOGIC ---
+        function initVapi() {
+            if (!vapiKeys.PUBLIC_KEY) return;
+            if (typeof VapiClass !== 'function') {
+                console.error("Vapi class could not be loaded.");
+                updateUI(CallStatus.ERROR);
+                return;
+            }
+            vapi = new VapiClass(vapiKeys.PUBLIC_KEY);
+            vapi.on('call-start', () => updateUI(CallStatus.ACTIVE));
+            vapi.on('call-end', () => updateUI(CallStatus.IDLE));
+            vapi.on('error', (e) => {
+                console.error('Vapi Error:', e);
+                updateUI(CallStatus.ERROR);
+            });
+        }
+
+        // --- EVENT LISTENERS ---
+        callButton.addEventListener('click', () => {
+            if (!vapiKeys.PUBLIC_KEY || !vapiKeys.ASSISTANT_ID) {
+                // If keys are missing (developer error in this case as config is removed)
+                console.error("Vapi Keys missing. Please check the source code constants.");
+                return;
+            }
+            if (!vapi) initVapi();
+
+            if (callStatus === CallStatus.IDLE || callStatus === CallStatus.ERROR) {
+                updateUI(CallStatus.CONNECTING);
+                vapi.start(vapiKeys.ASSISTANT_ID).catch(err => {
+                     console.error("Failed to start call:", err);
+                     updateUI(CallStatus.ERROR);
+                });
+            } else if (callStatus === CallStatus.ACTIVE) {
+                vapi.stop();
+            }
+        });
+
+        resetButton.addEventListener('click', () => updateUI(CallStatus.IDLE));
+
+
+        // --- INITIALIZATION ---
+        lucide.createIcons();
+        renderCustomerCards();
+        renderProductCards();
+        initVapi();
+    </script>
+</body>
+</html>
